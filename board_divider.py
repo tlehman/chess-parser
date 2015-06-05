@@ -8,7 +8,13 @@ def board_divider(filename_of_board_image):
     each created image named after its coordinates, like b4 and e7. """
     dir_name = filename_of_board_image.split(".")[0].replace("img", "tmp")
     os.mkdir(dir_name)
-    image = Image.open(filename_of_board_image)
+    tiler = ImageTiler(filename_of_board_image)
+    for i in range(1,8+1):
+        for j in range(1,8+1):
+            filename_of_tile = os.path.join(dir_name, "%d%d.png" % (i,j))
+            tiler.get_at_coords(i,j).save(filename_of_tile)
+
+
 
 def create_or_clear_tmp_dir():
     # create temp directory if doesn't exist
