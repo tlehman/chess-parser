@@ -1,12 +1,14 @@
 from unittest import TestCase
 import os
 import shutil
+from image_tiler import ImageTiler
 
 def board_divider(filename_of_board_image):
     """ Takes a board and divides it into 64 images, stores in files,
     each created image named after its coordinates, like b4 and e7. """
     dir_name = filename_of_board_image.split(".")[0].replace("img", "tmp")
     os.mkdir(dir_name)
+    image = Image.open(filename_of_board_image)
 
 def create_or_clear_tmp_dir():
     # create temp directory if doesn't exist
@@ -24,4 +26,4 @@ class BoardDividerTest(TestCase):
 
         board_divider("img/000.png")
         # Chess boards are 8x8, so there are 64 positions
-        assert len(os.listdir("tmp/000/")) == 0
+        assert len(os.listdir("tmp/000/")) == 64
