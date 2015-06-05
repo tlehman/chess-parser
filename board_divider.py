@@ -27,9 +27,12 @@ class BoardDividerTest(TestCase):
         """ Tests that the 64 files are created, from a1 all
         the way to h8 """
 
+        board_name = "000"
+        board_tile_dir = "tmp/%s/" % board_name
+        board_img_name = "img/%s.png" % board_name
         create_or_clear_tmp_dir()
-        assert os.path.exists("tmp/000/") == False
+        assert os.path.exists(board_tile_dir) == False
 
-        board_divider("img/000.png")
+        board_divider(board_img_name)
         # Chess boards are 8x8, so there are 64 positions
-        assert len(os.listdir("tmp/000/")) == 64
+        assert len(os.listdir(board_tile_dir)) == 64
