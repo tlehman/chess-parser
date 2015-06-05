@@ -9,9 +9,9 @@ def board_divider(filename_of_board_image):
     dir_name = filename_of_board_image.split(".")[0].replace("img", "tmp")
     os.mkdir(dir_name)
     tiler = ImageTiler(filename_of_board_image)
-    for i in range(1,8+1):
-        for j in range(1,8+1):
-            filename_of_tile = os.path.join(dir_name, "%d%d.png" % (i,j))
+    for i in range(8):
+        for j in range(8):
+            filename_of_tile = os.path.join(dir_name, "%d%d.jpg" % (i,j))
             tiler.get_at_coords(i,j).save(filename_of_tile)
 
 
@@ -23,16 +23,18 @@ def create_or_clear_tmp_dir():
     os.mkdir("tmp/")
 
 class BoardDividerTest(TestCase):
-    def test_board_divider_files_created(self):
+    def board_divider_files_created(self, board_name):
         """ Tests that the 64 files are created, from a1 all
         the way to h8 """
 
-        board_name = "000"
         board_tile_dir = "tmp/%s/" % board_name
-        board_img_name = "img/%s.png" % board_name
-        create_or_clear_tmp_dir()
-        assert os.path.exists(board_tile_dir) == False
+        board_img_name = "img/%s.jpg" % board_name
 
         board_divider(board_img_name)
         # Chess boards are 8x8, so there are 64 positions
         assert len(os.listdir(board_tile_dir)) == 64
+
+    def test_several_board_divisions(self):
+        for i in range(20):
+            board_name = str(i).rjust(3,'0')
+            self.board_divider_files_created(board_name)
