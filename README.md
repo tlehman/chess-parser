@@ -27,7 +27,7 @@ White Rook   h3
 
 If you are on Mac OS X
 ```
-brew install phash
+brew install phash homebrew/python/pillow   # READ OUTPUT, FOLLOW DIRECTIONS
 sudo pip install phash
 ```
 
