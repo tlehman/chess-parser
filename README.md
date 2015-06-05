@@ -34,7 +34,7 @@ sudo pip install phash
 If you are on Linux (Debian, Ubuntu, etc)
 ```
 apt get install libphash0 libphash0-dev
-sudo pip install phash
+sudo pip install phash pytest
 ```
 
 And if you are on some other Linux distribution, chances are
