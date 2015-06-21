@@ -3,6 +3,18 @@
 Given a square image of a chess board, identify all pieces and positions,
 then output them in machine-readable format.
 
+## To-Do
+
+ - [ ] make tmp location name use chess coords (07 = A1, etc.)
+
+## Usage
+
+### To divide board
+
+```
+py.test board_divider.py
+```
+
 ## Example
 
 **Input**:
