@@ -31,6 +31,8 @@ brew install phash homebrew/python/pillow   # READ OUTPUT, FOLLOW DIRECTIONS
 sudo pip install phash
 ```
 
+**NOTE**: Make sure you work with JPEG images, phash does not work with PNGs.
+
 If you are on Linux (Debian, Ubuntu, etc)
 ```
 apt get install libphash0 libphash0-dev

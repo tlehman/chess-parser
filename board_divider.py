@@ -35,6 +35,7 @@ class BoardDividerTest(TestCase):
         assert len(os.listdir(board_tile_dir)) == 64
 
     def test_several_board_divisions(self):
+        create_or_clear_tmp_dir()
         for i in range(20):
             board_name = str(i).rjust(3,'0')
             self.board_divider_files_created(board_name)
