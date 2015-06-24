@@ -19,7 +19,7 @@ py.test board_divider.py
 
 **Input**:
 
-![example chess board image](./img/004.png)
+![example chess board image](./img/004.jpg)
 
 **Output**:
 
