@@ -6,6 +6,10 @@ then output them in machine-readable format.
 ## To-Do
 
  - [ ] make tmp location name use chess coords (07 = A1, etc.)
+ - [ ] use randomized PCA to reduce dimensionality of data
+ - [ ] use SVM to classify individual pieces (12 total)
+ - [ ] ...
+ - [ ] profit!
 
 ## Usage
 
@@ -37,18 +41,9 @@ White Rook   h3
 
 ## Installation
 
-If you are on Mac OS X
-```
-brew install phash homebrew/python/pillow   # READ OUTPUT, FOLLOW DIRECTIONS
-sudo pip install phash
-```
-
-**NOTE**: Make sure you work with JPEG images, phash does not work with PNGs.
-
 If you are on Linux (Debian, Ubuntu, etc)
 ```
-apt get install libphash0 libphash0-dev
-sudo pip install phash pytest
+sudo pip install pytest numpy scipy scikit-learn
 ```
 
 And if you are on some other Linux distribution, chances are
