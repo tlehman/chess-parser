@@ -43,7 +43,7 @@ White Rook   h3
 
 If you are on Linux (Debian, Ubuntu, etc)
 ```
-sudo pip install pytest numpy scipy scikit-learn
+sudo pip install pytest numpy scipy scikit-learn pandas
 # optionally
 sudo pip install ipython
 ```
