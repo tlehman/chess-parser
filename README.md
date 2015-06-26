@@ -44,6 +44,8 @@ White Rook   h3
 If you are on Linux (Debian, Ubuntu, etc)
 ```
 sudo pip install pytest numpy scipy scikit-learn
+# optionally
+sudo pip install ipython
 ```
 
 And if you are on some other Linux distribution, chances are
