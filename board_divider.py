@@ -36,6 +36,6 @@ class BoardDividerTest(TestCase):
 
     def test_several_board_divisions(self):
         create_or_clear_tmp_dir()
-        for i in range(20):
+        for i in range(47):
             board_name = str(i).rjust(3,'0')
             self.board_divider_files_created(board_name)

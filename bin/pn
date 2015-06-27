@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+# rename batch files
+#
+#  usage:
+#    $ pn wp file4.jpg file5.jpg file6.jpg
+#
+#    $ ls WP*.jpg
+#    WP001.jpg
+#    WP002.jpg
+#    WP003.jpg
+#    WP004.jpg
+#    WP005.jpg
+#    WP006.jpg
+#    WP007.jpg
+#    WP008.jpg
+#    WP009.jpg
+
+def usage
+  STDERR.puts "usage:"
+  STDERR.puts "  $ pn wp file4.jpg file5.jpg file6.jpg"
+  exit 1
+end
+usage if ARGV.count < 2
+
+prefix = ARGV.shift.upcase
+last_filename = %x{ls #{prefix}*.jpg | tail -1}
+/[_A-Z]+(?<num>\d+)\.jpe?g/ =~ last_filename
+
+files_to_rename = ARGV
+num_files = files_to_rename.count
+starting_num = num.to_i + 1
+
+files_to_rename.each_with_index do |f,i|
+  num_new = (i + starting_num).to_s.rjust(3,'0')
+  fnew = "#{prefix}#{num_new}.jpg"
+  FileUtils.mv(f, fnew)
+end
+

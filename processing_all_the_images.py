@@ -4,35 +4,56 @@ import numpy as np
 import pandas as pd
 import pylab as pl
 from sklearn.decomposition import RandomizedPCA
+from sklearn import svm
 
-img_dir = "ref/"
+img_train_dir = "ref/pieces/"
+img_test_dir = "tmp/027/"
 
 # the trainingset is an array of (vector,label) pairs
-images = [img_dir+f for f in os.listdir(img_dir)][:24]
-labels = [f.split("/")[1][:-6] for f in images][:24]
+images_training = [img_train_dir+f for f in os.listdir(img_train_dir)]
+images_test = [img_test_dir+f for f in os.listdir(img_test_dir)]
+"0 is blank, odd positive numbers are black, even postives are white, etc."
+label_codes = {"_": 0, "BP": 1, "WP": 2,
+                       "BR": 3, "WR": 4,
+                       "BN": 5, "WN": 6,
+                       "BB": 7, "WB": 8,
+                       "BQ": 9, "WQ": 10,
+                       "BK": 11,"WK": 12}
 
-data = []
-for image in images:
+def label_from_code(c):
+    return [label for label, code in label_codes.items() if code == c][0]
+
+
+labels = [f.split("/")[-1][:-7] for f in images_training]
+target = [label_codes[label] for label in labels]
+
+data_training = []
+for image in images_training:
     img = img_to_matrix(image)
     img = flatten_image(img)
-    data.append(img)
+    data_training.append(img)
 
-data = np.array(data)
+data_test = []
+for image in images_test:
+    img = img_to_matrix(image)
+    img = flatten_image(img)
+    data_test.append(img)
 
-is_train = np.random.uniform(0, 1, len(data)) <= 0.7
-y = np.where(np.array(labels)=="B", 1, 0)
+data_training = np.array(data_training)
+data_test = np.array(data_test)
 
-train_x, train_y = data[is_train], y[is_train]
-test_x, test_y = data[is_train==False], y[is_train==False]
 
-# using a randomized PCA
-pca = RandomizedPCA(n_components=2)
-X = pca.fit_transform(data)
-df = pd.DataFrame({"x": X[:, 0], "y": X[:, 1], "label":np.where(y==1, "black", "white")})
-colors = ["black", "white"]
-for label, color in zip(df['label'].unique(), colors):
-    mask = df['label']==label
-    pl.scatter(df[mask]['x'], df[mask]['y'], c=color, label=label)
+# using a randomized PCA, reducing to 25 dimensions (from 7500 dimensions)
+pca = RandomizedPCA(n_components=25)
+X = pca.fit_transform(data_training)
+X_test = pca.fit_transform(data_test)
 
-pl.legend()
-pl.show()
+# make a linear support vector classifier
+clf = svm.LinearSVC()
+clf.fit(X, target)
+
+# check classified images
+for i, x in enumerate(X_test):
+    predicted = clf.predict(x)[0]
+    label = label_from_code(predicted)
+    print "%s  is  %s" % (images_test[i], label)
